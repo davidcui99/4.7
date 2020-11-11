@@ -33,6 +33,7 @@ for i in range(10):
 
 residual=pd.DataFrame(residual)
 sigma=np.cov(residual.T)
+
 # F=sigma0*beta*beta.T+sigma*identity matrix
 
 
@@ -61,3 +62,5 @@ compo=pca.fit(rp)
 f=pca.get_covariance() # This is the estimate of F
 
 # d)
+
+# The same as b)
