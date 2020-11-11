@@ -9,6 +9,7 @@ rp = pd.read_csv('m_ret_10stocks.txt', sep="\t", header=None, index_col=0)
 sp500 = pd.read_csv('m_sp500ret_3mtcm.txt', sep="\t", header=None)
 sp500=sp500.dropna(axis='columns')
 
+# a)
 
 rm=sp500.iloc[:,1]
 rf=sp500.iloc[:,2]
@@ -30,4 +31,9 @@ for i in range(10):
 
 residual=pd.DataFrame(residual)
 sigma=np.cov(residual.T)
-print(sigma)
+# F=sigma0*beta*beta.T+sigma*identity matrix
+
+
+# b)
+s=np.cov(rp)
+sigma_hat=
