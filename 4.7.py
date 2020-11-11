@@ -4,6 +4,7 @@ from scipy.stats import stats
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from scipy.stats import stats
+from sklearn.metrics import mean_squared_error
 
 rp = pd.read_csv('m_ret_10stocks.txt', sep="\t", header=None, index_col=0)
 sp500 = pd.read_csv('m_sp500ret_3mtcm.txt', sep="\t", header=None)
@@ -38,12 +39,17 @@ sigma=np.cov(residual.T)
 s=np.cov(rp.T)
 pi_hatij=[]
 r_matrix=[]
-
+h_array=[]
+h_arr=[]
 for i in range(10):
     r_matrix.append((rp.iloc[:,i]-rp.mean(axis=1)).tolist())
 
 r_matrix=pd.DataFrame(r_matrix)
-print(r_matrix)
-# rr=np.dot(r_matrix,r_matrix.T)
-# rr=pd.DataFrame(rr)
-# print(rr)
+
+
+
+
+# for j in range(156):
+#     b = matrix(r_matrix.iloc[:, j],tc='d')
+# Do the cross product with itself. should be 156 matrices of size 10*10. Put them in a list and then do mse with respect to s
+
