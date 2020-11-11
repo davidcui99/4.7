@@ -6,6 +6,8 @@ import statsmodels.api as sm
 from scipy.stats import stats
 from sklearn.metrics import mean_squared_error
 from sklearn.decomposition import PCA
+from cvxopt import matrix
+from cvxopt import solvers
 
 rp = pd.read_csv('m_ret_10stocks.txt', sep="\t", header=None, index_col=0)
 sp500 = pd.read_csv('m_sp500ret_3mtcm.txt', sep="\t", header=None)
@@ -32,13 +34,19 @@ for i in range(10):
     residual.append(h.resid)
 
 residual=pd.DataFrame(residual)
-sigma=np.cov(residual.T)
+sigma=np.cov(residual)
 
-# F=sigma0*beta*beta.T+sigma*identity matrix
+beta=matrix(beta,tc='d')
+identity=matrix(np.identity(10),tc='d')
+F=sigma0*beta*beta.T+sigma*identity
+F=matrix(F,tc='d')
+
+#  The structured covariance matrix F is given above
 
 
 # b)
 s=np.cov(rp.T)
+s=matrix(s,tc='d')
 pi_hatij=[]
 r_matrix=[]
 h_array=[]
@@ -51,8 +59,14 @@ r_matrix=pd.DataFrame(r_matrix)
 
 
 
-# for j in range(156):
-#     b = matrix(r_matrix.iloc[:, j],tc='d')
+for j in range(156):
+    rr=matrix(r_matrix.iloc[:, j],tc='d')
+    rrt=rr.T
+    b = matrix(rr*rrt,tc='d')
+    h_array.append(b)
+
+
+print(mean_squared_error(h_array,h_arr))
 # Do the cross product with itself. should be 156 matrices of size 10*10. Put them in a list and then do mse with respect to s
 
 # c)
