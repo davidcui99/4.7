@@ -35,5 +35,15 @@ sigma=np.cov(residual.T)
 
 
 # b)
-s=np.cov(rp)
-sigma_hat=
+s=np.cov(rp.T)
+pi_hatij=[]
+r_matrix=[]
+
+for i in range(10):
+    r_matrix.append((rp.iloc[:,i]-rp.mean(axis=1)).tolist())
+
+r_matrix=pd.DataFrame(r_matrix)
+print(r_matrix)
+# rr=np.dot(r_matrix,r_matrix.T)
+# rr=pd.DataFrame(rr)
+# print(rr)
