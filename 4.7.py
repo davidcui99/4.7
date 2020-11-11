@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from scipy.stats import stats
 from sklearn.metrics import mean_squared_error
+from sklearn.decomposition import PCA
 
 rp = pd.read_csv('m_ret_10stocks.txt', sep="\t", header=None, index_col=0)
 sp500 = pd.read_csv('m_sp500ret_3mtcm.txt', sep="\t", header=None)
@@ -53,3 +54,10 @@ r_matrix=pd.DataFrame(r_matrix)
 #     b = matrix(r_matrix.iloc[:, j],tc='d')
 # Do the cross product with itself. should be 156 matrices of size 10*10. Put them in a list and then do mse with respect to s
 
+# c)
+
+pca = PCA(n_components=2)
+compo=pca.fit(rp)
+f=pca.get_covariance() # This is the estimate of F
+
+# d)
