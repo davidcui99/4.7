@@ -50,14 +50,15 @@ s=matrix(s,tc='d')
 pi_hatij=[]
 r_matrix=[]
 h_array=[]
-h_arr=[]
+
 for i in range(10):
     r_matrix.append((rp.iloc[:,i]-rp.mean(axis=1)).tolist())
 
 r_matrix=pd.DataFrame(r_matrix)
 
 
-
+zeros= np.zeros((10,10))
+zeros=matrix(zeros,tc='d')
 
 for j in range(156):
     rr=matrix(r_matrix.iloc[:, j],tc='d')
@@ -65,8 +66,15 @@ for j in range(156):
     b = matrix(rr*rrt,tc='d')
     h_array.append(b)
 
+for i in range(156):
+    r=(h_array[i]-s)**2
+    zeros=r+zeros
 
-print(mean_squared_error(h_array,h_arr))
+pi_matrix=(zeros/156)
+pi_hat=sum(pi_matrix)
+
+
+# print(mean_squared_error(h_array,h_arr))
 # Do the cross product with itself. should be 156 matrices of size 10*10. Put them in a list and then do mse with respect to s
 
 # c)
